@@ -15,8 +15,8 @@ public class TestMehdi2 {
     private WebDriver driver;
 
     @BeforeEach
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver",   "./chromedriver.exe");
+    public void TestSetUp() {
+        System.setProperty("webdriver.chrome.driver",   "/tmp/chromedriver.exe");
         Map<String, Object> prefs = new HashMap<>();
         // permet tous les cookies pour Chrome, en deux étapes :
         // 1 - allow all cookies
@@ -26,20 +26,19 @@ public class TestMehdi2 {
         // Meme chose, pour Firefox
         prefs.put("network.cookie.cookieBehavior", 0);
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("window-size=1920x1080", "--headless");
+        options.addArguments("window-size=1920x1080", "--headless", "--no-sandbox");
         options.setExperimentalOption("prefs", prefs);
         driver = new ChromeDriver(options);
     }
 
     @AfterEach
-    public void tearDown() {
+    public void TestTearDown() {
         driver.quit();
     }
 
-
     @Test
     @DisplayName("Test unique Mehdi")
-    public void TestUniqueMehdi() {
+    public void testUniqueMehdi() {
         driver.get("http://www.google.fr");
         driver.manage().window().maximize();
     }
